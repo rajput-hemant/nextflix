@@ -1,9 +1,14 @@
+import Banner from "components/banner";
 import Layout from "components/layout/layout";
 
 const Home = () => {
   return (
     <Layout>
-      <h1>Hello World</h1>
+      <Banner
+        title={"Clifford"}
+        subtitle={"A dog"}
+        imgUrl={"/images/clifford.webp"}
+      />
     </Layout>
   );
 };

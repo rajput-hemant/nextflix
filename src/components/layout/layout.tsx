@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { Roboto_Slab } from "next/font/google";
 
+import Navbar from "components/navbar/navbar";
+
 const roboto = Roboto_Slab({ subsets: ["latin"] });
 
 interface LayoutProps {
@@ -20,7 +22,10 @@ const Layout = ({ children }: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={roboto.className}>{children}</main>
+      <div className={`${roboto.className} bg-black text-white h-screen`}>
+        <Navbar username="nextflix@domain.com" />
+        <main>{children}</main>
+      </div>
     </>
   );
 };

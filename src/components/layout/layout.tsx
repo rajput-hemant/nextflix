@@ -22,7 +22,7 @@ const Layout = ({ children }: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={`${roboto.className} bg-black text-white h-screen`}>
+      <div className={`${roboto.className} bg-black text-white h-full`}>
         <Navbar username="nextflix@domain.com" />
         <main>{children}</main>
       </div>

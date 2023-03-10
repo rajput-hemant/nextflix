@@ -14,7 +14,7 @@ const Banner = ({ title, subtitle, imgUrl }: BannerProps) => {
   return (
     // container
     <div className="w-full h-[80vh] relative">
-      {/* left wrapper */}
+      {/* left wrapper */}{" "}
       <div className="absolute w-full h-full z-10">
         {/* left */}
         <div className="flex justify-start px-16 h-full flex-col mt-24 md:w-2/5">

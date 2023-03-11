@@ -1,7 +1,7 @@
 import { getPopularVideos, getVideos } from "@/lib/youtube-api";
 import Banner from "components/banner/banner";
-import Layout from "components/layout/layout";
 import SectionCards from "components/card/section-cards";
+import Navbar from "components/navbar/navbar";
 
 export const getServerSideProps = async () => {
   const disney = await getVideos("disney trailer");
@@ -21,7 +21,8 @@ interface HomeProps {
 
 const Home = ({ disney, productivity, travel, popular }: HomeProps) => {
   return (
-    <Layout>
+    <>
+      <Navbar username="nextflix@domain.com" />
       <Banner
         title={"Clifford"}
         subtitle={"A dog"}
@@ -33,7 +34,7 @@ const Home = ({ disney, productivity, travel, popular }: HomeProps) => {
         <SectionCards title="Travel" data={travel} size="medium" />
         <SectionCards title="Popular" data={popular} size="small" />
       </div>
-    </Layout>
+    </>
   );
 };
 

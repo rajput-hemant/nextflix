@@ -16,13 +16,13 @@ const Layout = ({ children }: LayoutProps) => {
         <title>Nextflix</title>
         <meta
           name="description"
-          content="Practise project for learing NextJS by ZTM"
+          content="Practice project for Next.js course  by Zero To Mastery (ZTM)"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={`${roboto.className} bg-black text-white h-full`}>
+      <div className={`${roboto.className} bg-black/90 text-white h-full`}>
         <Navbar username="nextflix@domain.com" />
         <main>{children}</main>
       </div>

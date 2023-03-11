@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export interface CardProps {
+interface CardProps {
   id: number;
   imgUrl: string;
   size: "large" | "medium" | "small";

@@ -1,11 +1,12 @@
-import Card, { CardProps } from "./card";
+import Card from "./card";
 
 interface SectionCardsProps {
   title: string;
-  cards: CardProps[];
+  data: { imgUrl: string }[];
+  size: "small" | "medium" | "large";
 }
 
-const SectionCards = ({ title, cards }: SectionCardsProps) => {
+const SectionCards = ({ title, data = [], size }: SectionCardsProps) => {
   return (
     // container
     <section className="px-4">
@@ -13,8 +14,8 @@ const SectionCards = ({ title, cards }: SectionCardsProps) => {
       <h2 className="font-bold text-4xl">{title}</h2>
       {/* card wrapper */}
       <div className="flex pt-7 pb-6 mt-6 mr-3 overflow-x-scroll overflow-y-hidden">
-        {cards.map((card, i) => {
-          return <Card key={i} id={i} imgUrl={card.imgUrl} size="large" />;
+        {data.map((item, i) => {
+          return <Card key={i} id={i} imgUrl={item.imgUrl} size={size} />;
         })}
       </div>
     </section>

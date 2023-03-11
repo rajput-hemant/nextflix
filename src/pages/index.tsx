@@ -22,7 +22,7 @@ interface HomeProps {
 const Home = ({ disney, productivity, travel, popular }: HomeProps) => {
   return (
     <>
-      <Navbar username="nextflix@domain.com" />
+      <Navbar />
       <Banner
         title={"Clifford"}
         subtitle={"A dog"}

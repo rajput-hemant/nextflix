@@ -1,5 +1,8 @@
 import Head from "next/head";
 import { Roboto_Slab } from "next/font/google";
+import { useEffect, useState } from "react";
+import { magic } from "@/lib/magic-client";
+import { useRouter } from "next/router";
 
 const roboto = Roboto_Slab({ subsets: ["latin"] });
 
@@ -8,6 +11,33 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      if (magic) {
+        const isLoggedIn = await magic.user.isLoggedIn();
+        if (isLoggedIn) {
+          router.push("/");
+        } else {
+          router.push("/login");
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    const onRouteChange = () => {
+      setIsLoading(false);
+    };
+    router.events.on("routeChangeComplete", onRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", onRouteChange);
+    };
+  }, [router]);
+
   return (
     <>
       <Head>
@@ -21,7 +51,7 @@ const Layout = ({ children }: LayoutProps) => {
       </Head>
 
       <div className={`${roboto.className} bg-black/90 text-white`}>
-        <main>{children}</main>
+        {isLoading ? <div>Loading...</div> : <main>{children}</main>}
       </div>
     </>
   );

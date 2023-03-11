@@ -2,13 +2,27 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { magic } from "@/lib/magic-client";
 
 const Login = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [userMssg, setUserMssg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const onRouteChange = () => {
+      setIsLoading(false);
+    };
+    router.events.on("routeChangeComplete", onRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", onRouteChange);
+    };
+  }, [router]);
 
   const onEmailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target!.value;
@@ -16,16 +30,25 @@ const Login = () => {
     setEmail(email);
   };
 
-  const loginHandler = () => {
-    console.log("login");
-    if (email) {
-      if (email.includes("@")) {
-        router.push("/");
-      } else {
-        setUserMssg("Something went wrong logging you in!");
+  const loginHandler = async () => {
+    if (email && email.includes("@")) {
+      // log in a user by their email
+      try {
+        if (magic) {
+          setIsLoading(true);
+          const didToken = await magic.auth.loginWithMagicLink({ email });
+          if (didToken) {
+            // setIsLoading(false);
+            // instead of setting loading state to false here,
+            // we can set it to false in the routeChangeComplete event
+            router.push("/");
+          }
+        }
+      } catch (error) {
+        setIsLoading(false);
+        console.log("Something went wrong logging you in!", error);
       }
     } else {
-      // ...
       setUserMssg("Enter a valid email address!");
     }
   };
@@ -69,7 +92,7 @@ const Login = () => {
             onClick={loginHandler}
             className="bg-red-600 px-12 py-2 text-xl text-white font-bold rounded-md mt-6"
           >
-            Sign In
+            {isLoading ? "Loading..." : "Sign In"}
           </button>
           <p className="flex justify-center gap-3 pt-6">
             Secured by
